@@ -1,0 +1,127 @@
+/* Center the card, no page background color */
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  background: transparent;
+}
+
+/* Card styling */
+.login-box {
+  background: #ffffff;
+  border: 1px solid #e5e9f0;
+  padding: 50px 40px;
+  border-radius: 16px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  color: #222;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Titles */
+.login-heading {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #4c9aff, #ff7eb9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  margin-bottom: 35px;
+  color: #666;
+}
+
+/* Floating input fields */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #cfd9e7;
+  color: #333;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  color: #888;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Floating label effect */
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -10px;
+  font-size: 0.8rem;
+  color: #4c9aff;
+}
+
+/* Input focus line */
+.input-group input:focus {
+  border-bottom-color: #ff7eb9;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #4c9aff, #ff7eb9);
+  border: none;
+  padding: 12px 0;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 126, 185, 0.3);
+}
+
+/* Signup text */
+.signup-text {
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.signup-text a {
+  color: #ff7eb9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
