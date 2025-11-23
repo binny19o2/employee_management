@@ -12,24 +12,27 @@
                             <th>Name</th>
                             <th>Contact</th>
                             <th>Email</th>
-                            <th>Parent Dept</th>
-                            <th>Child Dept</th>
-                            <th>Role</th>
-                            <th>Gender</th>
+                            <th>Dept</th>
+                            <!-- <th>Child Dept</th> -->
+                            <!-- <th>Role</th> -->
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Loop through employees here -->
-                        <!-- Example row -->
-                        <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>9090909090</td>
-                            <td>john@example.com</td>
-                            <td>Engineering</td>
-                            <td>Frontend</td>
-                            <td>Developer</td>
-                            <td>M</td>
+                        <tr *ngIf="!employeeList || employeeList.length === 0">
+                            <td colspan="5" class="text-center">No employees found.</td>
+                        </tr>
+                        <tr *ngFor="let item of employeeList; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.employeeName }}</td>
+                            <td>{{ item.contactNo }}</td>
+                            <td>{{ item.emailId }}</td>
+                            <td>{{ item.deptId }}</td>
+                            
+                            <td>
+                                <button class="btn btn-warning" (click)="onEdit(item)">Update</button>
+                                <button class="btn btn-danger" (click)="onDelete(item.employeeId)">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,7 +98,14 @@
                        <input type="radio" value="Male" [(ngModel)]="employeeObj.gender" name="gender"> Male
                        <input type="radio" value="Female" [(ngModel)]="employeeObj.gender" name="gender"> Female
                     </div>
-                    <button class="btn btn-success w-100">Submit</button>
+                    @if(employeeObj.employeeId == 0 ){
+                        
+                        <button type="button" (click)="onSaveEmp()" class="btn btn-success w-100">Submit</button>
+                    }
+                    @else{
+                        <button type="button" (click)="onUpdateEmp(employeeObj)" class="btn btn-primary w-100">Update</button>
+
+                    }
                 </form>
             </div>
         </div>

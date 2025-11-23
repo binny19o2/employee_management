@@ -1,23 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Master } from '../../services/master';
 import { IApiResponse, IChildDept, IParentDept, Employee as EmployeeModel } from '../../model/Employee';
 import { FormsModule } from '@angular/forms';
+import { EmployeeService } from '../../services/employee';
 
 @Component({
   selector: 'app-employee',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './employee.html',
   styleUrl: './employee.css',
 })
 export class Employee implements OnInit {
   masterService = inject(Master);
+  empService = inject(EmployeeService);
   parentDeptList: IParentDept[] = [];
   childDeptList: IChildDept[] = [];
   deptId: number = 0;
   employeeObj: EmployeeModel = new EmployeeModel();
-
+  employeeList: EmployeeModel[] = [];
   ngOnInit(): void {
       this.getParentDeptList();
+      this.getEmployees();
   }
 
   getParentDeptList(){
@@ -42,6 +46,40 @@ export class Employee implements OnInit {
         ];
       }
       this.childDeptList = res.data;
+    })
+  }
+  onSaveEmp(){
+    this.empService.createNewEmp(this.employeeObj).subscribe((res:EmployeeModel)=>{
+      alert("Emp Added Success")
+    },error=>{
+      alert("error")
+    })
+  }
+  getEmployees(){
+    this.empService.getAllEmployees().subscribe((res:EmployeeModel[])=>{
+      this.employeeList = res;
+    })
+  }
+  onDelete(id: number){
+    const result = confirm("Are you sure?");
+    if (result) {
+      this.empService.deleteEmployeeById(id).subscribe((res) => {
+        alert("deletion success")
+        this.getEmployees();
+      }, error => {
+        alert("Error, cannot delete");
+      })
+    }
+  }
+  onEdit(obj: EmployeeModel){
+    this.employeeObj = obj;
+  }
+  onUpdateEmp(obj: EmployeeModel){
+    this.empService.updateEmp(this.employeeObj).subscribe((res:EmployeeModel)=>{
+      alert("Emp Update Success");
+      this.getEmployees();
+    },error=>{
+      alert("error")
     })
   }
 }
