@@ -40,3 +40,14 @@ export interface IApiResponse {
     result: boolean,
     data: any
 }
+
+export interface ProjectModel {
+  projectId: number
+  projectName: string
+  clientName: string
+  startDate: string
+  leadByEmpId: number
+  contactPerson: string
+  contactNo: string
+  emailId: string
+}

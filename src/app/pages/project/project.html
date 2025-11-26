@@ -1,0 +1,113 @@
+<!-- PROJECT TABLE SECTION -->
+<div id="projectTableSection" class="col-12" *ngIf="onToggle">
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Project List</h5>
+            <div class="bg-primary text-end">
+                <button (click)="onToggle = false">Create New Project</button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Project Name</th>
+                        <th>Client Name</th>
+                        <th>Start Date</th>
+                        <th>Lead By (Emp ID)</th>
+                        <th>Contact Person</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of projectList;let sr=index">
+                        <td>{{sr+1}}</td>
+                        <td>{{project.projectName}}</td>
+                        <td>{{project.clientName}}</td>
+                        <td>{{project.startDate | date:"dd-MM-yy"}}</td>
+                        <td>{{project.leadByEmpId}}</td>
+                        <td>{{project.contactPerson}}</td>
+                        <td>{{project.contactNo}}</td>
+                        <td>{{project.emailId}}</td>
+                        <td>
+                            <button class="btn btn-warning" (click)="onEdit(project)">Edit</button>
+                            <button class="btn btn-danger" (click)="onDelete(project)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- PROJECT FORM SECTION -->
+<div id="projectFormSection" class="col-12" *ngIf="!onToggle">
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Add Project</h5>
+            <div class="bg-success text-end">
+                <button (click)="onToggle = true; initializeForm()">Show Projects</button>
+            </div>
+        </div>
+        <div class="card-body">
+            
+            <form  [formGroup]="projectForm" (submit)="onSaveProject()">
+
+                <!-- Row 1: Project Name + Client Name -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Project Name</label>
+                        <input type="text" class="form-control" formControlName="projectName" placeholder="Enter project name">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Client Name</label>
+                        <input type="text" class="form-control" formControlName="clientName" placeholder="Enter client name">
+                    </div>
+                </div>
+
+                <!-- Start Date -->
+                <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" class="form-control" formControlName="startDate">
+                </div>
+
+                <!-- Row 2: Lead Emp ID + Contact Person -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lead By (Employee ID)</label>
+                        <select class="form-select" formControlName="leadByEmpId">
+                            <option value="">Select</option>
+                            <option *ngFor="let emp of empData$ | async" [value]="emp.employeeId">{{emp.employeeName}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Contact Person</label>
+                        <input type="text" class="form-control" formControlName="contactPerson" placeholder="Enter contact person's name">
+                    </div>
+                </div>
+
+                <!-- Row 3: Contact Number + Email -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" formControlName="contactNo" placeholder="Enter contact number">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="emailId" placeholder="Enter email">
+                    </div>
+                </div>
+                    <button class="btn btn-success w-40 text-center">Submit</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

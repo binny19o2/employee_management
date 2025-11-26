@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Master } from '../../services/master';
 import { IApiResponse, IChildDept, IParentDept, Employee as EmployeeModel } from '../../model/Employee';
@@ -19,6 +19,7 @@ export class Employee implements OnInit {
   deptId: number = 0;
   employeeObj: EmployeeModel = new EmployeeModel();
   employeeList: EmployeeModel[] = [];
+  isSidePanel = signal<boolean>(true);
   ngOnInit(): void {
       this.getParentDeptList();
       this.getEmployees();
@@ -81,5 +82,11 @@ export class Employee implements OnInit {
     },error=>{
       alert("error")
     })
+  }
+  onAdd(){
+    this.isSidePanel.set(true);
+  }
+  close(){
+    this.isSidePanel.set(false);
   }
 }

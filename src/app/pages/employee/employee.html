@@ -1,8 +1,13 @@
 <div class="row">
-    <div class="col-md-8">
+    <div [class]="isSidePanel() ? 'col-8' : 'col-12'" >
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Employee Data</h5>
+            <div class="row bg-primary">
+                <div class="col-6 text-white">
+                    <h5 class="mb-0">Employee Data</h5>
+                </div>
+                <div class="col-6  text-end">
+                    <button (click)="onAdd()">Add New </button>
+                </div>
             </div>
             <div class="card-body p-0">
                 <table class="table table-striped table-hover mb-0">
@@ -39,11 +44,16 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-4">
+    @if(isSidePanel()){
+        <div class="col-md-4">
         <div class="card shadow-sm">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">Add Employee</h5>
+            <div class="row bg-success">
+                <div class="col-6 text-white">
+                    <h5 class="mb-0">Add Employee</h5>
+                </div>
+                <div class="col-6 bg-success text-end">
+                    <button (click)="close()">Close</button>
+                </div>
             </div>
             <div class="card-body">
                 <form #employeeForm="ngForm">
@@ -110,5 +120,7 @@
             </div>
         </div>
     </div>
+    }
+    
 
 </div>
