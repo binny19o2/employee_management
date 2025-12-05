@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Employee, IApiResponse, ProjectModel } from '../model/Employee';
+import { Employee, IApiResponse, ProjectEmployee, ProjectModel } from '../model/Employee';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -35,5 +35,11 @@ export class EmployeeService {
   }
   deleteProjectById(id:number){
     return this.http.delete(`/api/EmployeeManagement/DeleteProject/${id}`);
+  }
+  addNewProjectEmp(obj:ProjectEmployee){
+    return this.http.post<ProjectEmployee>("/api/EmployeeManagement/CreateProjectEmployee",obj)
+  }
+  getProjectEmployees(){
+    return this.http.get<ProjectEmployee[]>("/api/EmployeeManagement/GetAllProjectEmployees")
   }
 }
