@@ -4,10 +4,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { EmployeeService } from '../../services/employee';
 import { Observable } from 'rxjs';
 import { Employee, ProjectEmployee, ProjectModel } from '../../model/Employee';
+import { Pagination } from "../../pagination/pagination";
 
 @Component({
   selector: 'app-project',
-  imports: [NgIf, ReactiveFormsModule, NgFor, AsyncPipe, DatePipe,FormsModule],
+  imports: [NgIf, ReactiveFormsModule, NgFor, AsyncPipe, DatePipe, FormsModule, Pagination],
   templateUrl: './project.html',
   styleUrl: './project.css',
 })
@@ -19,6 +20,8 @@ export class Project implements OnInit {
   projectList: ProjectModel[] = [];
   projectEmployee: ProjectEmployee = new ProjectEmployee();
   projectEmployeeList: ProjectEmployee[] = [];
+  itemsPerPage = 10;
+  currentPage = 1;
   constructor() {
     this.initializeForm();
     this.empData$ = this.empService.getAllEmployees();
@@ -123,7 +126,7 @@ export class Project implements OnInit {
     this.empService.addNewProjectEmp(this.projectEmployee).subscribe((res)=>{
       alert("emp added succ");
 
-
+      
     },error=>{
       alert("error from api");
     })
@@ -133,5 +136,14 @@ export class Project implements OnInit {
       const rec = res.filter(m => m.projectId == id);
       this.projectEmployeeList = rec;
     })
+  }
+
+  changePage(page:number){
+    this.currentPage = page;
+  }
+  get paginatedData(){
+    const start = (this.currentPage-1)*this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.projectList.slice(start,end);
   }
 }

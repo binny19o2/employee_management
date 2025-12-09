@@ -22,9 +22,9 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let project of projectList;let sr=index">
-                        <td>{{sr+1}}</td>
+                <tbody> 
+                    <tr *ngFor="let project of paginatedData;let sr=index">
+                        <td>{{(sr+1)+10*(currentPage-1) }}</td>
                         <td>{{project.projectName}}</td>
                         <td>{{project.clientName}}</td>
                         <td>{{project.startDate | date:"dd-MM-yy"}}</td>
@@ -39,6 +39,7 @@
                         </td>
                     </tr>
                 </tbody>
+                <app-pagination [totalItems]="projectList.length" [itemsPerPage]="this.itemsPerPage" [currentPage]="this.currentPage" (onClick)="changePage($event)"></app-pagination>
             </table>
         </div>
     </div>

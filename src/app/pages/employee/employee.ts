@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Master } from '../../services/master';
 import { IApiResponse, IChildDept, IParentDept, Employee as EmployeeModel } from '../../model/Employee';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { EmployeeService } from '../../services/employee';
 
 @Component({
   selector: 'app-employee',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,NgIf,NgFor],
   templateUrl: './employee.html',
   styleUrl: './employee.css',
 })

@@ -19,15 +19,17 @@ export class Login {
   router = inject(Router);
   onLogin(){
     // this.http.post("https://projectapi.gerasim.in/api/EmployeeManagement/login",this.loginObj).subscribe((res: any) =>{
-    this.http.post("/api/EmployeeManagement/login",this.loginObj).subscribe((res: any) =>{
-      if(res.result){
-        localStorage.setItem('employeeApp',JSON.stringify(res.data));
-        this.router.navigate(["/dashboard"]);
-      }
-      else{
-        alert(res.message);
-      }
-    })
+    // this.http.post("/api/EmployeeManagement/login",this.loginObj).subscribe((res: any) =>{
+    //   if(res.result){
+    //     localStorage.setItem('employeeApp',JSON.stringify(res.data));
+    //     this.router.navigate(["/dashboard"]);
+    //   }
+    //   else{
+    //     alert(res.message);
+    //   }
+    // })
+    this.router.navigate(["/dashboard"]);
+
   }
 
 }
